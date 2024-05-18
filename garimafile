@@ -1,31 +1,31 @@
 pipeline {
-  agent any
-  tools {
-    maven 'M2_HOME'
-  }
-  stages {
-    stage('Git checkout') {
-      steps {
-        echo 'This is for cloning the git repo'
-        git branch: 'master', url: 'https://github.com/Garimabhati/Insurance-project-17May.git'
-      }
+    agent any
+    tools {
+        maven 'M2_HOME'
     }
-    stage('Create a Package') {
-      steps {
-        echo 'This will create a package using Maven'
-        sh 'mvn package'
-      }
-    }
- stage('Publish the HTML Reports') {
-      steps {
-          publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: '/var/lib/jenkins/workspace/InsureProject/target/surefire-reports', reportFiles: 'index.html', reportName: 'HTML Report', reportTitles: '', useWrapperFileDirectly: true])
-                        }
+    stages {
+        stage('Git checkout') {
+            steps {
+                echo 'This is for cloning the git repo'
+                git branch: 'master', url: 'https://github.com/Garimabhati/Insurance-project-17May.git'
             }
-stage('Create a Docker image from the Package Insure-Me.jar file') {
-      steps {
-       sh 'docker build -t Garimabhati/Insurance-project-17may:1.0'
-                    }
+        }
+        stage('Create a Package') {
+            steps {
+                echo 'This will create a package using Maven'
+                sh 'mvn package'
             }
+        }
+        stage('Publish the HTML Reports') {
+            steps {
+                publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: 'target/surefire-reports', reportFiles: 'index.html', reportName: 'HTML Report', reportTitles: '', useWrapperFileDirectly: true])
+            }
+        }
+        stage('Create a Docker image from the Package Insure-Me.jar file') {
+            steps {
+                echo 'Building Docker image'
+                sh 'docker build -t Garimabhati/Insurance-project-17may:1.0 .'
+            }
+        }
     }
 }
-
