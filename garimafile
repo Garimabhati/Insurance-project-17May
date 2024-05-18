@@ -27,17 +27,17 @@ pipeline {
                 sh 'docker build -t Garimabhati/insurance-project-17may:1.0 .'
             }
         }
-stage('Login to Dockerhub') {
-      steps {
-       withCredentials([usernamePassword(credentialsId: 'Dockerlogin-user', passwordVariable: 'Dockerpass', usernameVariable: 'Dockerlogin')]) {
-        sh 'docker login -u ${dockerlogin} -p ${dockerpass}'
-                                                                    }
-                                }
+        stage('Login to Dockerhub') {
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'Dockerlogin-user', passwordVariable: 'DOCKERPASS', usernameVariable: 'DOCKERLOGIN')]) {
+                    sh 'echo $DOCKERPASS | docker login -u $DOCKERLOGIN --password-stdin'
+                }
             }
-stage('Push the Docker image') {
-      steps {
-        sh 'docker push admingarima11/insure-me-app:1.0'
-                                }
+        }
+        stage('Push the Docker image') {
+            steps {
+                sh 'docker push Garimabhati/insurance-project-17may:1.0'
             }
+        }
     }
 }
