@@ -36,7 +36,7 @@ pipeline {
         }
         stage('Push the Docker image') {
             steps {
-                sh 'docker push garimabhati/insurance-project-17may:1.0'
+                sh 'docker push admingarima11/insure-me-app:1.0'
             }
         }
     }
