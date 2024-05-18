@@ -1,22 +1,23 @@
 pipeline {
-   agent any 
+    agent any
 
-     tools {
-       maven 'M2_HOME'
-      }
+    tools {
+        maven 'M2_HOME'
+    }
 
-     stages {
-       stage('Checkout') {
-        steps {
-           echo 'Checkout the source code from GitHub'
-           git branch: 'master', url:  'https://github.com/Garimabhati/Insurance-project-17May.git'
-             }
-       }
-     stages('Package') {
-        steps {
-          echo 'Create a package'
-           sh 'mvn clean package'
-              }
-      }
-   }
+    stages {
+        stage('Checkout') {
+            steps {
+                echo 'Checkout the source code from GitHub'
+                git branch: 'master', url: 'https://github.com/Garimabhati/Insurance-project-17May.git'
+            }
+        }
+
+        stage('Package') {
+            steps {
+                echo 'Create a package'
+                sh 'mvn clean package'
+            }
+        }
+    }
 }
