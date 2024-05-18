@@ -24,7 +24,7 @@ pipeline {
         stage('Create a Docker image from the Package Insure-Me.jar file') {
             steps {
                 echo 'Building Docker image'
-                sh 'docker build -t Garimabhati/Insurance-project-17may:1.0 .'
+                sh 'docker build -t Garimabhati/insurance-project-17may:1.0 .'
             }
         }
     }
